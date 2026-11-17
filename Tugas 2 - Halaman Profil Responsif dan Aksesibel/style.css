@@ -834,6 +834,11 @@ p {
         position: static;
         max-width: none;
     }
+    /* Di layar sempit hero membungkus jadi satu kolom, foto 240px terlalu
+       mendominasi dan mendorong konten ke bawah */
+    .hero-media {
+        max-width: 140px;
+    }
 }
 
 /* Animasi hamburger */

@@ -552,12 +552,24 @@ p {
 .contact-info {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 22px;
+    gap: 14px 32px;
     margin-top: 20px;
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.6;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.contact-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
 .contact-email {

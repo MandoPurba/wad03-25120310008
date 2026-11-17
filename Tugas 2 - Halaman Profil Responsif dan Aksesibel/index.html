@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romando Purba | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="#home">
+                <span class="brand-logo">RP</span>
+                <span class="brand-text">
+                    <span class="brand-name">Romando Purba</span>
+                    <span class="brand-tagline">Backend Developer</span>
+                </span>
+            </a>
+            <!-- Navbar Dekstop mode -->
+            <nav class="nav-desktop" aria-label="Main Navigation">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link" aria-current="page">Home</a></li>
+                    <li><a class="nav-link" href="#profile">Profile</a></li>
+                    <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link nav-cta" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"
+                aria-controls="nav-mobile">
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+            </button>
+        </div>
+        <!-- Navbar mobile -->
+        <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link" aria-current="page">Home</a></li>
+                <li><a class="nav-link" href="#profile">Profile</a></li>
+                <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                <li><a class="nav-link nav-cta" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Romando Purba -</span>
+                    <span class="hero-title-line hero-title-accent">
+                        <span class="sr-only">Backend Developer</span>
+                        <span class="typewriter" aria-hidden="true"
+                            data-words="Backend Developer|Computer Science Student"></span>
+                    </span>
+                </h1>
+                <p class="hero-lead">
+                    A Computer Science student who spends most of the day on the server side: designing APIs, shaping
+                    database schemas, and keeping data pipelines running quietly in the background. Currently learning
+                    Rust and digging into how real-time systems stay in sync.
+                </p>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn btn-primary">Portofolio</a>
+                    <a href="#contact" class="btn btn-secondary">Get in touch</a>
+                </div>
+            </div>
+
+            <div class="hero-media">
+                <div class="hero-photo">
+                    <img src="./assets/profile.jpeg" alt="Portrait of Romando Purba" width="400" height="400">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container layout">
+        <main class="main">
+            <!-- Profile -->
+            <section class="section" id="profile">
+                <h2 class="section-label"><span class="section-num">01</span>About me</h2>
+                <p class="section-lead">
+                    I build the parts of an application nobody ever sees, and make sure they keep working.
+                </p>
+                <p class="section-text">
+                    Most of my projects start from a small annoyance: a report that takes too long to generate, data
+                    that never quite matches between two systems, a process still done by hand every Monday morning.
+                    I like breaking those problems down into APIs, schemas, and background jobs that the next person
+                    can actually read. Outside of class I write about backend engineering on Medium, and I have a habit
+                    of rebuilding things I have already built, only cleaner the second time.
+                </p>
+                <dl class="fact-grid">
+                    <div class="fact">
+                        <dt class="fact-label">Location</dt>
+                        <dd class="fact-value">Jakarta</dd>
+                    </div>
+                    <div class="fact">
+                        <dt class="fact-label">Major</dt>
+                        <dd class="fact-value">Computer Science</dd>
+                    </div>
+                    <div class="fact">
+                        <dt class="fact-label">Fokus</dt>
+                        <dd class="fact-value">Backend Developer</dd>
+                    </div>
+                    <div class="fact">
+                        <dt class="fact-label">Hobi</dt>
+                        <dd class="fact-value">Traveling</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <!-- Skills -->
+            <section class="section" id="portfolio">
+                <h2 class="section-label"><span class="section-num">02</span>Portfolio</h2>
+                <div class="project-grid">
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/01.jpg" alt="Kafka topics streaming change events into a ClickHouse table" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">CDC Postgres to ClickHouse</h3>
+                            <p class="project-desc">Streams row-level changes out of Postgres and into ClickHouse in near real time, so heavy analytics queries never touch the production database.</p>
+                            <span class="project-stack">Postgres, Kafka, ClickHouse, Debezium</span>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/02.jpg" alt="Endpoint list of the campus library REST API" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Campus Library API</h3>
+                            <p class="project-desc">REST API for book loans and returns with JWT auth, role-based access for students and staff, and an overdue-fine calculator that runs nightly.</p>
+                            <span class="project-stack">Rust, Actix Web, PostgreSQL, JWT</span>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/03.jpg" alt="Seat map of the campus event ticketing service" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Event Ticketing Service</h3>
+                            <p class="project-desc">Handles seat reservations for campus events. A hold timer in Redis locks a seat during checkout, so two people can never pay for the same chair.</p>
+                            <span class="project-stack">Go, Fiber, Redis, Docker</span>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/04.jpg" alt="Queue monitor of the notification dispatch service" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Notification Dispatch Service</h3>
+                            <p class="project-desc">Queues outgoing email and push notifications, retries failures with exponential backoff, and parks anything still broken in a dead-letter queue instead of losing it silently.</p>
+                            <span class="project-stack">Python, FastAPI, Celery, RabbitMQ</span>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/05.jpg" alt="Weather dashboard with a seven-day forecast chart" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Weather Dashboard</h3>
+                            <p class="project-desc">Single-page dashboard with a seven-day forecast chart. API responses are cached in local storage, so a repeat visit renders before the network answers.</p>
+                            <span class="project-stack">JavaScript, Fetch API, Chart.js, OpenWeather</span>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-thumb">
+                            <img src="./assets/projects/06.jpg" alt="Terminal session showing the log search CLI filtering service logs" width="320" height="200">
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Log Search CLI</h3>
+                            <p class="project-desc">Command-line tool that tails JSON logs from several services at once and filters them with a small query grammar. The last hour stays in memory, so re-running a search is instant.</p>
+                            <span class="project-stack">Rust, Tokio, Clap, SQLite</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="section section-boxed" id="contact">
+                <h2 class="section-label"><span class="section-num">03</span>Contact</h2>
+                <p class="section-lead">Open for freelance backend work, or just a long conversation more. Email is the fastest way to reach me.</p>
+                <div class="contact-info">
+                    <a href="mailto:romando.purba@cakrawala.ac.id"
+                        class="contact-email">romando.purba@cakrawala.ac.id</a>
+                    <span class="contact-phone">+62 852 xxxx 4321</span>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <section class="widget">
+                <h2 class="widget-title">Latest Writing</h2>
+                <ul class="post-list">
+                    <li class="post">
+                        <a href="https://medium.com/@romando.purba125/building-real-time-database-synchronization-with-rust-and-postgresql-listen-notify-0acc212b05a1"
+                            class="post-link" target="_blank">Building Real-Time Database Synchronization with Rust and PostgreSQL
+                            Listen/Notify</a>
+                        <span class="post-meta">05 Mar 2026 - 10 min read</span>
+                    </li>
+                    <li class="post">
+                        <a href="https://medium.com/@romando.purba125/rest-apis-with-actix-web-in-rust-9557dab8aa5e"
+                            class="post-link" target="_blank">REST APIs with Actix Web in Rust</a>
+                        <span class="post-meta">27 Jul 2024 - 8 min read</span>
+                    </li>
+                </ul>
+            </section>
+
+            <figure class="quote">
+                <blockquote class="quote-text">
+                    <p>I believe life is an intelligent thing: that things aren't random.</p>
+                </blockquote>
+                <figcaption class="quote-cite">Steve Jobs</figcaption>
+            </figure>
+
+            <section class="widget">
+                <h2 class="widget-title">Sosial Link</h2>
+                <ul class="social-list">
+                    <li><a href="https://github.com/MandoPurba/" class="social-link" target="_blank"
+                            rel="noopener noreferrer">Github</a></li>
+                    <li><a href="https://linkedin.com/in/romando-purba12/" class="social-link" target="_blank"
+                            rel="noopener noreferrer">LinkedIn</a></li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p class="footer-copy">&copy; 2026 Romando Purba. All rights reserved.</p>
+            <p class="footer-note">Built with semantic HTML5 &amp; vanilla CSS</p>
+        </div>
+    </footer>
+</body>
+
+</html>

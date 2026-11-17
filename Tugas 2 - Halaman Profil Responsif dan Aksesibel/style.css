@@ -112,6 +112,26 @@ p {
     padding-inline: var(--container-pad);
 }
 
+/* Tersembunyi sampai difokuskan, z-index di atas header yang sticky */
+.skip-link {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 100;
+    padding: 11px 18px;
+    border-radius: var(--r-sm);
+    background-color: var(--acc);
+    color: var(--on-acc);
+    font-size: 15px;
+    transform: translateY(-150%);
+    transition: transform 0.15s;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    outline-offset: 4px;
+}
+
 .site-header {
     position: sticky;
     top: 0;

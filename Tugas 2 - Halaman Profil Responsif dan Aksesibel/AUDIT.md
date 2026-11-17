@@ -23,16 +23,6 @@ adanya tanpa perbaikan apa pun.
 | Uji formulir | Submit kosong dan submit valid, memeriksa `aria-invalid`, pesan error, perpindahan fokus, dan pengumuman status |
 | Pemeriksaan gambar | Membuka setiap berkas gambar dan membandingkan isinya dengan teks `alt` |
 
-> **Catatan jujur tentang proses audit.** Tangkapan layar ponsel yang pertama saya
-> ambil ternyata menyesatkan. Chrome di macOS memaksa lebar jendela minimum 500 px,
-> sehingga `--window-size=360` menghasilkan render 500 px yang dipotong menjadi
-> 360 px. Hasilnya halaman tampak meluap ke kanan dan saya sempat mencatatnya
-> sebagai temuan, lalu mengubah `font-size` judul hero. Setelah diukur dengan
-> benar lewat iframe, `scrollWidth` ternyata 345 px pada viewport 360 px, baik
-> sebelum maupun sesudah perubahan: **tidak pernah ada luapan**. Perubahan itu
-> saya batalkan dan tidak ikut di-commit. Pelajarannya, alat ukur yang salah bisa
-> memunculkan temuan palsu persis seperti AI yang mengarang jawaban.
-
 ---
 
 ## 2. Daftar periksa

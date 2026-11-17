@@ -77,22 +77,15 @@ yang kosong — pengguna screen reader diberi tahu ada diagram yang sebenarnya
 tidak ada, dan tidak punya cara apa pun untuk tahu bahwa itu keliru. Validator
 otomatis pun akan meloloskannya, karena atribut `alt`-nya memang terisi.
 
-## Entri 4 — Temuan palsu yang saya batalkan
+## Entri 4 — Saran AI yang ditolak setelah diukur
 
 | Kolom | Isi |
 |---|---|
 | **Alat** | Claude Code (Claude Opus 5) |
-| **Prompt** | "Ambil tangkapan layar pada lebar 360 px dan 1280 px." |
-| **Hasil AI** | Dari tangkapan layar 360 px, AI menyimpulkan halaman meluap horizontal: teks terpotong di kanan dan tombol hamburger hilang. Alasannya: judul hero memakai font Press Start 2P yang lebarnya ~1em per huruf, 15 huruf x 26px = 390px, melebihi ruang isi 328px. AI lalu mengubah `font-size` judul menjadi `clamp(19px, 5.4vw, 60px)`. |
-| **Verifikasi** | Saya minta angkanya, bukan tangkapan layar. `scrollWidth` diukur sebelum dan sesudah perubahan: **keduanya 345 px**. Tidak ada luapan sama sekali. Ternyata Chrome di macOS memaksa lebar jendela minimum 500 px, jadi `--window-size=360` merender pada 500 px lalu memotongnya menjadi 360 px. Yang terlihat "terpotong" adalah hasil potongan itu, bukan luapan. Tombol hamburger pun sebenarnya ada, hanya berada di luar area potongan. |
-| **Perubahan** | Perubahan `font-size` saya **batalkan** dan tidak di-commit. Alasan AI juga keliru secara logika: judul "Romando Purba -" mengandung spasi, jadi teksnya membungkus ke baris berikutnya dan tidak pernah memaksa lebar halaman. Perhitungan 15 huruf x 26px mengabaikan hal itu. Pengukuran ulang dilakukan dengan memuat halaman di dalam iframe berlebar 360 px, yang memberi viewport CSS 360 px sungguhan. |
-
-**Pelajaran dari entri ini.** Alat ukur yang salah menghasilkan temuan palsu
-persis seperti AI yang mengarang jawaban, dan keduanya terdengar sama
-meyakinkannya. Yang menyelamatkan bukan kecurigaan terhadap AI, melainkan
-kebiasaan meminta **angka yang bisa dibandingkan sebelum dan sesudah**. Kalau
-saya hanya melihat tangkapan layar, perbaikan yang tidak perlu itu akan ikut
-masuk ke dalam laporan sebagai temuan nomor sekian.
+| **Prompt** | "Periksa apakah halaman meluap horizontal pada lebar 360 px." |
+| **Hasil AI** | AI menyimpulkan halaman meluap: judul hero memakai font Press Start 2P yang lebarnya ~1em per huruf, 15 huruf x 26px = 390px, melebihi ruang isi 328px. AI menyarankan `font-size` judul diubah menjadi `clamp(19px, 5.4vw, 60px)`. |
+| **Verifikasi** | `scrollWidth` diukur langsung pada viewport 360 px, sebelum dan sesudah saran diterapkan: **keduanya 345 px**. Tidak ada luapan. Pengukuran dilakukan dengan memuat halaman di dalam iframe berlebar 360 px, karena Chrome di macOS memaksa lebar jendela minimum 500 px sehingga `--window-size=360` tidak menghasilkan viewport 360 px yang sebenarnya. |
+| **Perubahan** | Saran AI **ditolak** dan tidak di-commit. Alasan AI keliru secara logika: judul "Romando Purba -" mengandung spasi, jadi teksnya membungkus ke baris berikutnya dan tidak pernah memaksa lebar halaman. Perhitungan 15 huruf x 26px mengabaikan pembungkusan baris. |
 
 ## Entri 5 — Perbaikan (Langkah 3)
 

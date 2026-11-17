@@ -36,3 +36,81 @@ Sumber:
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/414
 - https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
 - https://developer.mozilla.org/en-US/docs/Glossary/Cacheable
+
+---
+
+# Tugas 2 — Halaman Profil Responsif dan Aksesibel
+
+## Entri 2 — Membuat halaman profil (Langkah 1)
+
+| Kolom | Isi |
+|---|---|
+| **Alat** | Claude Code (CLI, model Claude Opus 5 dari Anthropic) |
+| **Prompt** | "Buat halaman profil dengan HTML dan CSS berisi header, navigasi, bagian tentang saya, daftar keterampilan, dan formulir kontak. Pakai HTML semantik dan buat responsif." |
+| **Hasil AI** | Satu `index.html`, `style.css`, dan `script.js`. Strukturnya memakai `header`, dua `nav`, `main`, `aside`, `footer`, `section`, `article`, `figure`/`figcaption`, dan `dl`. Ada token warna di `:root`, menu hamburger dengan `aria-expanded` dan `aria-controls`, animasi mengetik di judul, serta penghormatan terhadap `prefers-reduced-motion`. |
+| **Verifikasi** | Belum diverifikasi pada tahap ini. Sesuai instruksi tugas, hasil ini di-commit apa adanya pada commit `d2e802e` supaya bisa dibandingkan dengan versi setelah audit. |
+| **Perubahan** | Tidak ada. Justru di sinilah letak gunanya: karena hasil mentahnya tersimpan utuh di Git, setiap temuan audit bisa ditunjuk baris dan commit-nya. |
+
+**Catatan penting:** dua dari lima bagian yang saya minta ternyata **tidak dibuat
+sama sekali** — daftar keterampilan dan formulir kontak. AI bahkan menaruh
+komentar `<!-- Skills -->` di atas section Portfolio, seolah-olah bagian itu
+sudah ada. Kalau saya menerima hasilnya begitu saja tanpa membaca, kekurangan ini
+tidak akan ketahuan karena halamannya tetap terlihat rapi dan penuh.
+
+## Entri 3 — Audit hasil AI (Langkah 2)
+
+| Kolom | Isi |
+|---|---|
+| **Alat** | Claude Code (Claude Opus 5), dibantu Chrome headless untuk pengukuran |
+| **Prompt** | "Audit halaman ini dengan daftar periksa: elemen semantik, teks alternatif gambar, kontras warna, label pada form, urutan fokus keyboard, dan tampilan pada 360 px dan 1280 px." |
+| **Hasil AI** | AI menemukan 10 masalah, dan juga menyebut beberapa hal yang sudah benar: `.sr-only` memakai `clip-path` bukan `display:none`, animasi mengetik diberi `aria-hidden` dengan teks pengganti, serta Escape pada menu mengembalikan fokus ke tombol pemicu. |
+| **Verifikasi** | Tidak ada yang saya percaya mentah-mentah. Kontras dihitung ulang dengan rumus WCAG 2.1 — 17 kombinasi, semuanya lolos AA, terendah 5.13:1. Formulir diuji dengan submit kosong dan submit valid. Lebar halaman diukur lewat `scrollWidth`: 345 px pada viewport 360 px dan 1265 px pada 1280 px, jadi tidak ada scroll horizontal. Setiap berkas gambar saya buka satu per satu dan dibandingkan dengan teks `alt`-nya. |
+| **Perubahan** | Satu temuan AI saya **tolak** setelah diukur, lihat Entri 4. Satu temuan lain justru saya temukan sendiri dari membuka berkas gambar, bukan dari AI: ketujuh teks `alt` mendeskripsikan gambar yang tidak pernah ada. |
+
+**Temuan paling serius.** AI menulis `alt="Seat map of the campus event ticketing
+service"` untuk `projects/03.jpg`, padahal isinya foto papan kayu bertuliskan
+TICKETS. Ketujuh gambar bernasib sama, termasuk `profile.jpeg` yang diberi
+`alt="Portrait of Romando Purba"` padahal isinya ilustrasi garis kepala kucing.
+Polanya jelas: AI mengarang deskripsi yang cocok dengan **judul proyek**, karena
+ia memang tidak pernah melihat isi gambarnya. Ini lebih berbahaya daripada `alt`
+yang kosong — pengguna screen reader diberi tahu ada diagram yang sebenarnya
+tidak ada, dan tidak punya cara apa pun untuk tahu bahwa itu keliru. Validator
+otomatis pun akan meloloskannya, karena atribut `alt`-nya memang terisi.
+
+## Entri 4 — Temuan palsu yang saya batalkan
+
+| Kolom | Isi |
+|---|---|
+| **Alat** | Claude Code (Claude Opus 5) |
+| **Prompt** | "Ambil tangkapan layar pada lebar 360 px dan 1280 px." |
+| **Hasil AI** | Dari tangkapan layar 360 px, AI menyimpulkan halaman meluap horizontal: teks terpotong di kanan dan tombol hamburger hilang. Alasannya: judul hero memakai font Press Start 2P yang lebarnya ~1em per huruf, 15 huruf x 26px = 390px, melebihi ruang isi 328px. AI lalu mengubah `font-size` judul menjadi `clamp(19px, 5.4vw, 60px)`. |
+| **Verifikasi** | Saya minta angkanya, bukan tangkapan layar. `scrollWidth` diukur sebelum dan sesudah perubahan: **keduanya 345 px**. Tidak ada luapan sama sekali. Ternyata Chrome di macOS memaksa lebar jendela minimum 500 px, jadi `--window-size=360` merender pada 500 px lalu memotongnya menjadi 360 px. Yang terlihat "terpotong" adalah hasil potongan itu, bukan luapan. Tombol hamburger pun sebenarnya ada, hanya berada di luar area potongan. |
+| **Perubahan** | Perubahan `font-size` saya **batalkan** dan tidak di-commit. Alasan AI juga keliru secara logika: judul "Romando Purba -" mengandung spasi, jadi teksnya membungkus ke baris berikutnya dan tidak pernah memaksa lebar halaman. Perhitungan 15 huruf x 26px mengabaikan hal itu. Pengukuran ulang dilakukan dengan memuat halaman di dalam iframe berlebar 360 px, yang memberi viewport CSS 360 px sungguhan. |
+
+**Pelajaran dari entri ini.** Alat ukur yang salah menghasilkan temuan palsu
+persis seperti AI yang mengarang jawaban, dan keduanya terdengar sama
+meyakinkannya. Yang menyelamatkan bukan kecurigaan terhadap AI, melainkan
+kebiasaan meminta **angka yang bisa dibandingkan sebelum dan sesudah**. Kalau
+saya hanya melihat tangkapan layar, perbaikan yang tidak perlu itu akan ikut
+masuk ke dalam laporan sebagai temuan nomor sekian.
+
+## Entri 5 — Perbaikan (Langkah 3)
+
+| Kolom | Isi |
+|---|---|
+| **Alat** | Claude Code (Claude Opus 5) |
+| **Prompt** | "Perbaiki temuan audit, masing-masing dalam commit tersendiri." |
+| **Hasil AI** | 10 commit perbaikan, satu temuan per commit, dengan pesan commit yang menjelaskan temuan dan alasan perbaikannya. |
+| **Verifikasi** | Formulir diuji otomatis: submit kosong menghasilkan 3 kolom `aria-invalid="true"`, 3 pesan error tampil, fokus pindah ke kolom bermasalah pertama, dan status terbaca "Message not sent: 3 field(s) need attention."; submit valid menghasilkan pesan sukses tanpa kolom invalid tersisa. Keempat `label[for]` terbukti menunjuk ke elemen yang ada. Hierarki heading dicek tidak melompati level. Nesting HTML divalidasi, tidak ada tag yang tidak tertutup. |
+| **Perubahan** | Pada Temuan 8, saran awal AI adalah menjadikan nomor telepon tautan `tel:`. Saya tolak karena nomornya sengaja disamarkan (`+62 852 xxxx 4321`), sehingga tautannya pasti gagal saat ditekan. Yang dipakai adalah memberi label terlihat "Phone". Pada Temuan 9, AI menawarkan `alt=""` dengan alasan gambarnya dekoratif; saya pilih menulis deskripsi faktual agar isi gambar tetap tersampaikan, meski keduanya sama-sama sah. |
+
+## Pernyataan penggunaan AI
+
+Seluruh berkas pada tugas ini — `index.html`, `style.css`, `script.js`,
+`AUDIT.md`, dan jurnal ini — dibuat dengan bantuan **Claude Code (Claude Opus 5,
+Anthropic)**, dan hal itu dinyatakan terbuka sesuai aturan tugas. Pembagiannya:
+AI menulis kode dan draf, saya yang menentukan apa yang dikerjakan, memverifikasi
+setiap klaim dengan pengukuran, dan menolak dua saran yang terbukti keliru
+(Entri 4 dan Entri 5). Setiap commit perbaikan juga mencantumkan
+`Co-Authored-By: Claude Opus 5`, jadi jejak penggunaan AI bisa ditelusuri
+langsung dari riwayat Git, bukan hanya dari jurnal ini.

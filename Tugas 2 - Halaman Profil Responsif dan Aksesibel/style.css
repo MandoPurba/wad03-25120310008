@@ -54,6 +54,9 @@ button {
     --acc-2: #5a5a5a;
     --on-acc: #ffffff;
 
+    /* Kontras 8.4:1 di atas --surface, lolos WCAG AA untuk teks normal */
+    --danger: #96140d;
+
     /* Font */
     --font-pixel: "Press Start 2P", monospace;
     --font-sans: "Space Grotesk", system-ui, sans-serif;
@@ -550,6 +553,99 @@ p {
 
 .contact-phone {
     color: var(--text-muted);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 52ch;
+    margin-top: 32px;
+    padding-top: 26px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.form-title {
+    font-size: 20px;
+}
+
+.form-note {
+    margin-top: -8px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-body);
+}
+
+.field-req {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-muted);
+}
+
+.field-input {
+    /* min-height 44px: target sentuh yang nyaman di layar 360 px */
+    min-height: 44px;
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background-color: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.field-input:hover {
+    border-color: var(--acc-2);
+}
+
+.field-textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.field-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Status error ditandai lewat teks pesan, bukan warna saja */
+.field-error {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--danger);
+}
+
+.field-input[aria-invalid="true"] {
+    border-color: var(--danger);
+    border-width: 2px;
+}
+
+.contact-form .btn {
+    align-self: flex-start;
+    min-height: 44px;
+}
+
+.form-status:not(:empty) {
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background-color: var(--bg);
+    font-size: 14px;
 }
 
 .widget {

@@ -346,7 +346,7 @@ p {
 }
 .hero-photo {
     aspect-ratio: 1;
-    overflow: auto;
+    overflow: hidden;
     border-radius: 50%;
 }
 
@@ -442,7 +442,7 @@ p {
 
 .fact-label {
     font-family: var(--font-mono);
-    font-style: 11px;
+    font-size: 11px;
     line-height: 1;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -451,7 +451,7 @@ p {
 
 .fact-value {
     margin-top: 8px;
-    font-style: 15px;
+    font-size: 15px;
 }
 
 

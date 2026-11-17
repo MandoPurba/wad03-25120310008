@@ -432,6 +432,44 @@ p {
 }
 
 
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: clamp(12px, 2vw, 18px);
+}
+
+.skill-group {
+    padding: 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-sm);
+    background-color: var(--surface);
+}
+
+.skill-group-title {
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.skill {
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    font-size: 14px;
+    color: var(--text-body);
+}
+
+
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
